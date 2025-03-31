@@ -10,7 +10,8 @@ export default function App() {
     error,
     handleAnalyze,
     calculatePayments,
-    classifyPerformance
+    classifyPerformance,
+    getRandomComments
   } = useHuntAnalyzer();
 
   return (
@@ -136,7 +137,7 @@ export default function App() {
                           const classifications = classifyPerformance(parsedData);
                           const playerClass = topDamagePlayer ? classifications[topDamagePlayer.name] : null;
                           const tierClass = playerClass?.damageClass || 'tier_a';
-                          const comment = playerClass?.damageComment || '';
+                          const comments = getRandomComments('high_damage', tierClass, 2);
                           
                           return (
                             <div className="bg-red-50 p-2 rounded-md border border-red-100 h-full">
@@ -150,10 +151,11 @@ export default function App() {
                                 <span className="font-medium text-sm">{topDamagePlayer?.name}</span>
                                 <span className="font-bold text-red-700 text-sm">{topDamagePlayer?.damage?.toLocaleString() || 0}</span>
                               </div>
-                              {comment && (
-                                <p className="text-xs italic text-red-700 mt-1 border-t border-red-100 pt-1">
-                                  &quot;{comment}&quot;
-                                </p>
+                              {comments.length > 0 && (
+                                <div className="text-xs italic text-red-700 mt-1 border-t border-red-100 pt-1">
+                                  <p className="mb-1">&quot;{comments[0]}&quot;</p>
+                                  {comments[1] && <p>&quot;{comments[1]}&quot;</p>}
+                                </div>
                               )}
                             </div>
                           );
@@ -168,7 +170,7 @@ export default function App() {
                           const classifications = classifyPerformance(parsedData);
                           const playerClass = topHealingPlayer ? classifications[topHealingPlayer.name] : null;
                           const tierClass = playerClass?.healClass || 'tier_a';
-                          const comment = playerClass?.healComment || '';
+                          const comments = getRandomComments('high_heal', tierClass, 2);
                           
                           return (
                             <div className="bg-green-50 p-2 rounded-md border border-green-100 h-full">
@@ -182,10 +184,11 @@ export default function App() {
                                 <span className="font-medium text-sm">{topHealingPlayer?.name}</span>
                                 <span className="font-bold text-green-700 text-sm">{topHealingPlayer?.healing?.toLocaleString() || 0}</span>
                               </div>
-                              {comment && (
-                                <p className="text-xs italic text-green-700 mt-1 border-t border-green-100 pt-1">
-                                  &quot;{comment}&quot;
-                                </p>
+                              {comments.length > 0 && (
+                                <div className="text-xs italic text-green-700 mt-1 border-t border-green-100 pt-1">
+                                  <p className="mb-1">&quot;{comments[0]}&quot;</p>
+                                  {comments[1] && <p>&quot;{comments[1]}&quot;</p>}
+                                </div>
                               )}
                             </div>
                           );
@@ -203,7 +206,7 @@ export default function App() {
                           const classifications = classifyPerformance(parsedData);
                           const playerClass = lowestDamagePlayer ? classifications[lowestDamagePlayer.name] : null;
                           const tierClass = playerClass?.damageClass || 'tier_b';
-                          const comment = playerClass?.damageComment || '';
+                          const comments = getRandomComments('low_damage', tierClass, 2);
                           
                           return (
                             <div className="bg-gray-50 p-2 rounded-md border border-gray-200 h-full">
@@ -217,10 +220,11 @@ export default function App() {
                                 <span className="font-medium text-sm">{lowestDamagePlayer?.name}</span>
                                 <span className="font-bold text-gray-600 text-sm">{lowestDamagePlayer?.damage?.toLocaleString() || 0}</span>
                               </div>
-                              {comment && (
-                                <p className="text-xs italic text-gray-500 mt-1 border-t border-gray-100 pt-1">
-                                  &quot;{comment}&quot;
-                                </p>
+                              {comments.length > 0 && (
+                                <div className="text-xs italic text-gray-500 mt-1 border-t border-gray-100 pt-1">
+                                  <p className="mb-1">&quot;{comments[0]}&quot;</p>
+                                  {comments[1] && <p>&quot;{comments[1]}&quot;</p>}
+                                </div>
                               )}
                             </div>
                           );
@@ -235,7 +239,7 @@ export default function App() {
                           const classifications = classifyPerformance(parsedData);
                           const playerClass = lowestBalancePlayer ? classifications[lowestBalancePlayer.name] : null;
                           const tierClass = playerClass?.balanceClass || 'tier_b';
-                          const comment = playerClass?.balanceComment || '';
+                          const comments = getRandomComments('low_profit', tierClass, 2);
                           
                           return (
                             <div className="bg-yellow-50 p-2 rounded-md border border-yellow-100 h-full">
@@ -249,10 +253,11 @@ export default function App() {
                                 <span className="font-medium text-sm">{lowestBalancePlayer?.name}</span>
                                 <span className="font-bold text-yellow-700 text-sm">{lowestBalancePlayer?.balance?.toLocaleString() || 0}</span>
                               </div>
-                              {comment && (
-                                <p className="text-xs italic text-yellow-700 mt-1 border-t border-yellow-100 pt-1">
-                                  &quot;{comment}&quot;
-                                </p>
+                              {comments.length > 0 && (
+                                <div className="text-xs italic text-yellow-700 mt-1 border-t border-yellow-100 pt-1">
+                                  <p className="mb-1">&quot;{comments[0]}&quot;</p>
+                                  {comments[1] && <p>&quot;{comments[1]}&quot;</p>}
+                                </div>
                               )}
                             </div>
                           );

@@ -331,6 +331,32 @@ export function useHuntAnalyzer() {
     setParsedData(data);
   };
 
+  // Add this function to the useHuntAnalyzer hook
+  const getRandomComments = (category: keyof Comments, tier: string, count: number = 2): string[] => {
+    if (!comments) return [];
+    
+    const tierComments = comments[category][tier as keyof typeof comments[typeof category]];
+    if (!tierComments || !tierComments.length) return [];
+    
+    // If we don't have enough comments, return what we have
+    if (tierComments.length <= count) return [...tierComments];
+    
+    // Get random comments without duplicates
+    const result: string[] = [];
+    const indices = new Set<number>();
+    
+    while (indices.size < count && indices.size < tierComments.length) {
+      const randomIndex = Math.floor(Math.random() * tierComments.length);
+      if (!indices.has(randomIndex)) {
+        indices.add(randomIndex);
+        result.push(tierComments[randomIndex]);
+      }
+    }
+    
+    return result;
+  };
+  
+  // Make sure to include this in the return statement of the hook
   return {
     inputText,
     setInputText,
@@ -338,6 +364,7 @@ export function useHuntAnalyzer() {
     error,
     handleAnalyze,
     calculatePayments,
-    classifyPerformance
+    classifyPerformance,
+    getRandomComments  // Add this line
   };
 }
