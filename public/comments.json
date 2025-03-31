@@ -1,0 +1,130 @@
+{
+    "high_damage": {
+      "tier_s": [
+        "O boss já dropa loot direto no seu inventário de tanto medo.",
+        "Nem precisava do grupo, você já era a raid inteira sozinho.",
+        "Se DPS desse XP, você já estaria no nível máximo da vida real.",
+        "Os números do seu dano são tão altos que bugaram o servidor.",
+        "Até os outros DPS estão aplaudindo… ou chorando.",
+        "Você não joga, você faz speedrun da humilhação alheia.",
+        "Seu dano é tão absurdo que o heal nem precisava existir.",
+        "O boss pediu pra nerfarem sua classe depois dessa.",
+        "Você não ataca, você deleta inimigos do código do jogo.",
+        "Parabéns, você acabou de virar a nova meta do jogo."
+      ],
+      "tier_a": [
+        "Quase carregou o grupo, só faltou um selinho de gratidão.",
+        "Seu DPS foi tão bom que até os AFK ganharam crédito.",
+        "Os mobs morreram antes de entenderem o que aconteceu.",
+        "Você fez tanto dano que o tank esqueceu como usar aggro.",
+        "Se fosse um filme, você seria o protagonista (e o resto, elenco de apoio).",
+        "Até o sistema de combo ficou sem adjetivos pra você.",
+        "Seu dano foi tão consistente que parece até bot.",
+        "O grupo até pensou em te dar os drops... mas ninguém é santo.",
+        "Você não derrotou os mobs, você os aposentou.",
+        "Se o jogo tivesse um ranking de humilhação, você estaria no topo."
+      ]
+    },
+    "high_heal": {
+      "tier_s": [
+        "Até os mortos reviveriam só pra te agradecer.",
+        "Você não cura, você faz milagres com cool-down.",
+        "O tank te chama de 'anjo', os DPS de 'seguro de vida'.",
+        "Se healing desse XP, você já estaria no céu do jogo.",
+        "Os inimigos desistiram de atacar porque sabem que você existe.",
+        "Você não usa mana, usa esperança líquida.",
+        "Até os bugs do jogo evitam te nerfar por respeito.",
+        "Seu heal é tão bom que o tank esqueceu como usar defesa.",
+        "O único que pode dizer 'não morram' sem ser irônico.",
+        "O deus da vida real deve ter inveja do seu trabalho."
+      ],
+      "tier_a": [
+        "Você segurou a party como fita crepe em obra mal-feita.",
+        "Até os DPS mais burros sobreviveram graças a você.",
+        "Seu heal foi tão bom que o tank nem sentiu os hits.",
+        "Você não cura, você dá segundas chances (e terceiras, e quartas...).",
+        "O único motivo pelo qual o grupo não wipeou foi você.",
+        "Se healing fosse crime, você já estaria na cadeia por excesso.",
+        "Até os inimigos ficaram com dó de cancelar seus heals.",
+        "Você fez o tank parecer bom. Isso é talento.",
+        "Seu dedo no heal é mais rápido que a conexão do inimigo.",
+        "Obrigado por não deixar o grupo virar memória."
+      ]
+    },
+    "low_profit": {
+      "tier_s": [
+        "Você não farma, você faz caridade para os mobs.",
+        "Seu inventário é um monumento ao desperdício.",
+        "Até os NPCs vendem itens ruins pra você de propósito.",
+        "Você gasta mais gold consertando equipamento do que ganha.",
+        "O único que consegue ter prejuízo em evento de dobro de loot.",
+        "Seu profit é tão negativo que o jogo deveria te pagar pra jogar.",
+        "Você não faz gold, você é um buraco negro econômico.",
+        "Até os loots mais básicos fogem de você.",
+        "Seu talento é transformar ouro em lixo.",
+        "O único player que perde dinheiro AFK."
+      ],
+      "tier_a": [
+        "Você não farma, você coleciona desilusões.",
+        "Seu profit é tão baixo que até os noobs te dão esmola.",
+        "Gastou mais em poções do que ganhou em drops.",
+        "Você é a prova viva de que RNGode tem favoritos.",
+        "Seu inventário parece um brechó de itens inúteis.",
+        "Até os vendedores NPC fazem piada dos seus lucros.",
+        "Você não perde gold, você só investe mal... muito mal.",
+        "Seu profit foi tão ruim que o sistema de trade teve pena.",
+        "O único que consegue vender item épico por preço de comum.",
+        "Seu lema: 'O que é lucro?'."
+      ],
+      "tier_b": [
+        "Você não perdeu gold, só não ganhou também.",
+        "Seu profit foi tão neutro que nem o jogo registrou.",
+        "Pelo menos você não quebrou o equipamento... dessa vez.",
+        "Você farmou tanto que quase compensou os gastos.",
+        "Seu lucro foi como água de salsicha: duvidoso.",
+        "Até os mobs droparam lixo pra você por pena.",
+        "Você não é pobre, só está em recessão eterna.",
+        "Seu gold não diminuiu, só não aumentou.",
+        "Quase teve profit! Quase.",
+        "Você é o player que o mercado ignora."
+      ]
+    },
+    "low_damage": {
+      "tier_s": [
+        "Seu DPS foi tão baixo que até os healers te superaram.",
+        "Você não ataca, você dá cócegas nos mobs.",
+        "O único que consegue fazer menos dano que um AFK.",
+        "Seu ataque básico é considerado debuff de sono.",
+        "Até os pacifistas do RPG fazem mais dano que você.",
+        "Você não é DPS, é um espectador premium.",
+        "Seu dano foi tão irrelevante que o boss nem te viu.",
+        "O único que pode dizer 'não ataquei' sem mentir.",
+        "Seu DPS é como lágrima no oceano: invisível.",
+        "Parabéns, você redefine o conceito de 'inútil'."
+      ],
+      "tier_a": [
+        "Você fez tão pouco dano que o grupo esqueceu sua classe.",
+        "Seu DPS foi como placebo: não fez nada, mas deu esperança.",
+        "Atacou tanto quanto um NPC de cidade segura.",
+        "Você não é carry, é mob glorificado.",
+        "Seu dano foi tão baixo que nem apareceu no log.",
+        "O único que consegue errar ataques automáticos.",
+        "Você não derrota inimigos, você os entedia até eles desistirem.",
+        "Seu DPS foi como um suspiro: fraco e esquecível.",
+        "Até os suportes ficaram com vergonha por você.",
+        "Você não é DPS, é um enfeite com barra de HP."
+      ],
+      "tier_b": [
+        "Você participou! (Não pergunte como).",
+        "Seu dano foi como areia no deserto: presente, mas irrelevante.",
+        "Pelo menos você não atrapalhou... muito.",
+        "Você não fez diferença, mas também não estragou.",
+        "Seu DPS foi como um fantasma: todo mundo sabe que existe, mas ninguém vê.",
+        "Até os mobs ignoraram seus ataques por pena.",
+        "Você não é inútil, só está aqui pela companhia.",
+        "Seu dano foi como um cumprimento: rápido e sem impacto.",
+        "O grupo até esqueceu que você estava na party.",
+        "Você não joga, você decora o cenário."
+      ]
+    }
+  }
