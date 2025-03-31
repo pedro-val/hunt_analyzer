@@ -189,73 +189,63 @@ export function useHuntAnalyzer() {
       const totalSuppliesMatch = lines[4].match(/Supplies: ([\d,]+)/);
       if (!totalSuppliesMatch) throw new Error("Invalid total supplies format");
       
-      const totalBalanceMatch = lines[5].match(/Balance: ([\d,]+)/);
+      // Update this part to handle negative balance
+      const totalBalanceMatch = lines[5].match(/Balance: (-?[\d,]+)/);
       if (!totalBalanceMatch) throw new Error("Invalid total balance format");
       
       // Parse player data
       const players: PlayerData[] = [];
+      let currentIndex = 6;
       
-      // Start from line 6 (after session info)
-      let i = 6;
-      while (i < lines.length) {
-        const playerNameLine = lines[i].trim();
-        if (!playerNameLine) {
-          i++;
-          continue;
-        }
+      while (currentIndex < lines.length) {
+        const playerNameLine = lines[currentIndex++];
+        if (!playerNameLine || playerNameLine.trim() === '') continue;
         
-        // This should be a player name (not indented)
-        if (playerNameLine.startsWith('\t')) {
-          i++;
-          continue; // Skip unexpected indented line
-        }
+        const playerName = playerNameLine.replace(/\s\(Leader\)$/, '').trim();
         
-        // Create a new player
-        const player: PlayerData = {
-          name: playerNameLine,
-          loot: 0,
-          supplies: 0,
-          balance: 0,
-          damage: 0,
-          healing: 0
-        };
+        const lootLine = lines[currentIndex++];
+        if (!lootLine) break;
+        const lootMatch = lootLine.match(/Loot: ([\d,]+)/);
+        if (!lootMatch) throw new Error(`Invalid loot format for player ${playerName}`);
         
-        // Parse the next 5 lines for player stats
-        let statCount = 0;
-        i++;
+        const suppliesLine = lines[currentIndex++];
+        if (!suppliesLine) break;
+        const suppliesMatch = suppliesLine.match(/Supplies: ([\d,]+)/);
+        if (!suppliesMatch) throw new Error(`Invalid supplies format for player ${playerName}`);
         
-        while (i < lines.length && statCount < 5) {
-          const statLine = lines[i].trim();
-          
-          if (!statLine || !statLine.startsWith('Loot:') && !statLine.startsWith('Supplies:') && 
-              !statLine.startsWith('Balance:') && !statLine.startsWith('Damage:') && 
-              !statLine.startsWith('Healing:')) {
-            break; // Not a stat line, must be next player
+        const balanceLine = lines[currentIndex++];
+        if (!balanceLine) break;
+        // Update this part to handle negative balance
+        const balanceMatch = balanceLine.match(/Balance: (-?[\d,]+)/);
+        if (!balanceMatch) throw new Error(`Invalid balance format for player ${playerName}`);
+        
+        // Optional damage and healing
+        let damage: number | undefined;
+        let healing: number | undefined;
+        
+        if (currentIndex < lines.length && lines[currentIndex].trim().startsWith('Damage:')) {
+          const damageMatch = lines[currentIndex++].match(/Damage: ([\d,]+)/);
+          if (damageMatch) {
+            damage = parseInt(damageMatch[1].replace(/,/g, ''));
           }
-          
-          const lootMatch = statLine.match(/Loot: ([\d,]+)/);
-          const suppliesMatch = statLine.match(/Supplies: ([\d,]+)/);
-          const balanceMatch = statLine.match(/Balance: (-?[\d,]+)/);
-          const damageMatch = statLine.match(/Damage: ([\d,]+)/);
-          const healingMatch = statLine.match(/Healing: ([\d,]+)/);
-          
-          if (lootMatch) {
-            player.loot = parseInt(lootMatch[1].replace(/,/g, ''));
-          } else if (suppliesMatch) {
-            player.supplies = parseInt(suppliesMatch[1].replace(/,/g, ''));
-          } else if (balanceMatch) {
-            player.balance = parseInt(balanceMatch[1].replace(/,/g, ''));
-          } else if (damageMatch) {
-            player.damage = parseInt(damageMatch[1].replace(/,/g, ''));
-          } else if (healingMatch) {
-            player.healing = parseInt(healingMatch[1].replace(/,/g, ''));
-          }
-          
-          statCount++;
-          i++;
         }
         
-        players.push(player);
+        if (currentIndex < lines.length && lines[currentIndex].trim().startsWith('Healing:')) {
+          const healingMatch = lines[currentIndex++].match(/Healing: ([\d,]+)/);
+          if (healingMatch) {
+            healing = parseInt(healingMatch[1].replace(/,/g, ''));
+          }
+        }
+        
+        players.push({
+          name: playerName,
+          loot: parseInt(lootMatch[1].replace(/,/g, '')),
+          supplies: parseInt(suppliesMatch[1].replace(/,/g, '')),
+          // Parse balance with support for negative values
+          balance: parseInt(balanceMatch[1].replace(/,/g, '')),
+          damage,
+          healing
+        });
       }
       
       return {
@@ -265,11 +255,12 @@ export function useHuntAnalyzer() {
         lootType: lootTypeMatch[1],
         totalLoot: parseInt(totalLootMatch[1].replace(/,/g, '')),
         totalSupplies: parseInt(totalSuppliesMatch[1].replace(/,/g, '')),
+        // Parse total balance with support for negative values
         totalBalance: parseInt(totalBalanceMatch[1].replace(/,/g, '')),
         players
       };
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to parse session data");
+      setError((err as Error).message);
       return null;
     }
   };
