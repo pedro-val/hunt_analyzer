@@ -26,7 +26,7 @@ export interface Payment {
   amount: number;
 }
 
-interface Comments {
+export interface Comments {
   high_damage: {
     tier_s: string[];
     tier_a: string[];
