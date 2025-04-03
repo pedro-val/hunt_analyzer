@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { API_BASE_URL } from '@/utils/env';
 import Cookies from 'js-cookie';
 import { HuntInputStep } from './hunt/HuntInputStep';
@@ -44,14 +44,19 @@ export function AddHuntModal({ isOpen, onClose, onNoCharacters, characters, onHu
   const [partyHuntData, setPartyHuntData] = useState<PartyHuntData | null>(null);
   const [individualHuntData, setIndividualHuntData] = useState<HuntData | null>(null);
   const [partyHuntError, setPartyHuntError] = useState<string | null>(null);
+  
+  // Filtrar apenas personagens verificados
+  const verifiedCharacters = characters.filter(char => char.is_verified);
 
-  useEffect(() => {
-    if (isOpen) {
-      fetchHuntingGrounds();
+  // Use useCallback to memoize the functions that are used in the dependency array
+  const handleNoVerifiedCharacters = useCallback(() => {
+    if (onNoCharacters) {
+      onNoCharacters();
     }
-  }, [isOpen]);
+    onClose();
+  }, [onNoCharacters, onClose]);
 
-  const fetchHuntingGrounds = async () => {
+  const fetchHuntingGroundsCallback = useCallback(async () => {
     try {
       const token = Cookies.get('auth_token');
       if (!token) throw new Error('Authentication token not found');
@@ -72,7 +77,21 @@ export function AddHuntModal({ isOpen, onClose, onNoCharacters, characters, onHu
       console.error('Error fetching hunting grounds:', error);
       alert('Erro ao buscar hunting grounds. Tente novamente.');
     }
-  };
+  }, []);
+
+  // Fix the useEffect to use stable dependencies
+  useEffect(() => {
+    if (isOpen) {
+      // Verificar se há personagens verificados
+      if (verifiedCharacters.length === 0) {
+        // Se não houver personagens verificados, fechar o modal e chamar onNoCharacters
+        handleNoVerifiedCharacters();
+        return;
+      }
+      
+      fetchHuntingGroundsCallback();
+    }
+  }, [isOpen, verifiedCharacters.length, handleNoVerifiedCharacters, fetchHuntingGroundsCallback]);
 
   // Function to show temporary error message
   const showTemporaryError = (message: string) => {
@@ -125,11 +144,12 @@ export function AddHuntModal({ isOpen, onClose, onNoCharacters, characters, onHu
       
       // Verificar se temos dados de hunt em party
       if (partyHuntText) {
+        // Usar apenas personagens verificados para o parsePartyHuntText
         const parsedPartyData = parsePartyHuntText(
           partyHuntText, 
           selectedCharacter, 
           selectedHuntingGround,
-          characters
+          verifiedCharacters // Usar apenas personagens verificados
         );
         
         if (!parsedPartyData) {
@@ -245,6 +265,9 @@ export function AddHuntModal({ isOpen, onClose, onNoCharacters, characters, onHu
 
   if (!isOpen) return null;
 
+  // Se não houver personagens verificados, não renderizar o modal
+  if (verifiedCharacters.length === 0) return null;
+
   // Também precisamos atualizar o onClose para resetar os estados
   const handleClose = () => {
     resetStates();
@@ -271,7 +294,7 @@ export function AddHuntModal({ isOpen, onClose, onNoCharacters, characters, onHu
           <div className="border-r pr-6">
             <h3 className="text-lg font-medium text-gray-900 mb-4">Hunt Individual</h3>
             <HuntInputStep
-              characters={characters}
+              characters={verifiedCharacters} // Usar apenas personagens verificados
               huntingGrounds={huntingGrounds}
               selectedCharacter={selectedCharacter}
               setSelectedCharacter={setSelectedCharacter}
